@@ -3,144 +3,135 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Dream Chaser - Photo Editor Pro</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f0f0;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      padding: 20px;
     }
     header {
-      background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      width: 100%;
-      text-align: center;
-      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .profile-pic {
-      width: 100px;
-      height: 100px;
       border-radius: 50%;
-      border: 4px solid #fff;
+      width: 80px;
+      height: 80px;
+      border: 3px solid #fff;
     }
     h1 {
-      margin: 10px 0 0;
-      font-size: 24px;
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(to right, red, orange, green, blue, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    main {
-      padding: 20px;
-      max-width: 800px;
-      width: 100%;
-    }
-    .upload-section, .editor {
-      margin-bottom: 30px;
-    }
-    .tools button {
-      margin: 5px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .tools button:hover {
-      background: #0056b3;
-    }
-    #preview {
-      display: block;
-      max-width: 100%;
+    .container {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      gap: 20px;
       margin-top: 20px;
+    }
+    .sidebar, .tools {
+      background: rgba(0,0,0,0.3);
+      padding: 15px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .editor {
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+      border-radius: 10px;
+    }
+    .editor img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #1e90ff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #0d6efd;
     }
     footer {
       text-align: center;
-      padding: 20px;
-      background: #222;
-      color: #ccc;
-      width: 100%;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+    footer span {
+      color: #ff69b4;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="masud.jpg" alt="Masud Rana" class="profile-pic" />
-    <h1>The Dream Chaser - Photo Editor Pro</h1>
-  </header>  <main>
-    <section class="upload-section">
-      <h2>Select Image</h2>
-      <input type="file" accept="image/*" id="imageUpload" />
-      <button onclick="openCamera()">Take Photo</button>
-      <video id="camera" autoplay style="width: 100%; max-height: 300px;"></video>
-      <canvas id="canvas" style="display: none;"></canvas>
-    </section><section class="editor">
-  <h2>Edit Tools</h2>
-  <div class="tools">
-    <button onclick="applyFilter('grayscale(100%)')">Grayscale</button>
-    <button onclick="applyFilter('sepia(100%)')">Sepia</button>
-    <button onclick="applyFilter('invert(100%)')">Invert</button>
-    <button onclick="resetImage()">Reset</button>
-    <button onclick="downloadImage()">Download</button>
-  </div>
-  <img id="preview" src="" alt="Preview" />
-</section>
+    <img src="masud.jpg" alt="Masud" class="profile-pic" />
+    <h1>Masud Rana</h1>
+  </header>  <div class="container">
+    <div class="sidebar">
+      <h3>Basic Tools</h3>
+      <ul>
+        <li>Crop</li>
+        <li>Resize</li>
+        <li>Rotate</li>
+      </ul>
+      <h3>Advanced Tools</h3>
+      <ul>
+        <li>Brightness</li>
+        <li>Contrast</li>
+        <li>Saturation</li>
+        <li>AI</li>
+        <li>Blog</li>
+        <li>Background Remover</li>
+        <li>Photo Filters</li>
+      </ul>
+    </div><div class="editor">
+  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Editor Preview" />
+</div>
 
-  </main>  <footer>
-    <p>Developer By Masud</p>
-    <p>&copy; 2025 The Dream Chaser Zone</p>
-    <p>Created by Termuxmasud404</p>
-  </footer>  <script>
-    const imageUpload = document.getElementById('imageUpload');
-    const preview = document.getElementById('preview');
-    const video = document.getElementById('camera');
-    const canvas = document.getElementById('canvas');
+<div class="tools">
+  <h3>Filters</h3>
+  <button>Grayscale</button>
+  <button>Invert</button>
+  <button>Sepia</button>
+  <button>Clarendon</button>
+  <button>Gingham</button>
 
-    imageUpload.addEventListener('change', function () {
-      const file = this.files[0];
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.filter = '';
-      }
-    });
+  <h3>Adjustments</h3>
+  <label>Brightness</label><input type="range">
+  <label>Saturation</label><input type="range">
+  <label>Blur</label><input type="range">
+  <label>Brush Width</label><input type="range">
 
-    function applyFilter(filter) {
-      preview.style.filter = filter;
-    }
+  <h3>Draw</h3>
+  <button>Color</button>
+  <button>Watermark</button>
+</div>
 
-    function resetImage() {
-      preview.style.filter = '';
-    }
-
-    function downloadImage() {
-      const a = document.createElement('a');
-      a.href = preview.src;
-      a.download = 'edited-image.png';
-      a.click();
-    }
-
-    function openCamera() {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          video.srcObject = stream;
-          video.style.display = 'block';
-          const context = canvas.getContext('2d');
-          setTimeout(() => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0);
-            preview.src = canvas.toDataURL('image/png');
-            preview.style.filter = '';
-            video.srcObject.getTracks().forEach(track => track.stop());
-            video.style.display = 'none';
-          }, 3000);
-        })
-        .catch((err) => alert('Camera not accessible'));
-    }
-  </script></body>
+  </div>  <div style="text-align:center">
+    <a href="#" class="btn">Save Image</a>
+  </div>  <footer>
+    <p>Developed By <span>Masud</span></p>
+    <p>© 2025 The Dream Chaser Zone<br>Created by Termuxmasud404</p>
+  </footer>
+</body>
 </html>
