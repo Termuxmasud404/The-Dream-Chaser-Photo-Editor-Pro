@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Dream Chaser - Photo Editor Pro</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    }
+    h1 {
+      margin: 10px 0 0;
+      font-size: 24px;
+    }
+    main {
+      padding: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+    .upload-section, .editor {
+      margin-bottom: 30px;
+    }
+    .tools button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .tools button:hover {
+      background: #0056b3;
+    }
+    #preview {
+      display: block;
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #ccc;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="masud.jpg" alt="Masud Rana" class="profile-pic" />
+    <h1>The Dream Chaser - Photo Editor Pro</h1>
+  </header>  <main>
+    <section class="upload-section">
+      <h2>Select Image</h2>
+      <input type="file" accept="image/*" id="imageUpload" />
+      <button onclick="openCamera()">Take Photo</button>
+      <video id="camera" autoplay style="width: 100%; max-height: 300px;"></video>
+      <canvas id="canvas" style="display: none;"></canvas>
+    </section><section class="editor">
+  <h2>Edit Tools</h2>
+  <div class="tools">
+    <button onclick="applyFilter('grayscale(100%)')">Grayscale</button>
+    <button onclick="applyFilter('sepia(100%)')">Sepia</button>
+    <button onclick="applyFilter('invert(100%)')">Invert</button>
+    <button onclick="resetImage()">Reset</button>
+    <button onclick="downloadImage()">Download</button>
+  </div>
+  <img id="preview" src="" alt="Preview" />
+</section>
+
+  </main>  <footer>
+    <p>Developer By Masud</p>
+    <p>&copy; 2025 The Dream Chaser Zone</p>
+    <p>Created by Termuxmasud404</p>
+  </footer>  <script>
+    const imageUpload = document.getElementById('imageUpload');
+    const preview = document.getElementById('preview');
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('canvas');
+
+    imageUpload.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.filter = '';
+      }
+    });
+
+    function applyFilter(filter) {
+      preview.style.filter = filter;
+    }
+
+    function resetImage() {
+      preview.style.filter = '';
+    }
+
+    function downloadImage() {
+      const a = document.createElement('a');
+      a.href = preview.src;
+      a.download = 'edited-image.png';
+      a.click();
+    }
+
+    function openCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+          video.style.display = 'block';
+          const context = canvas.getContext('2d');
+          setTimeout(() => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0);
+            preview.src = canvas.toDataURL('image/png');
+            preview.style.filter = '';
+            video.srcObject.getTracks().forEach(track => track.stop());
+            video.style.display = 'none';
+          }, 3000);
+        })
+        .catch((err) => alert('Camera not accessible'));
+    }
+  </script></body>
+</html>
